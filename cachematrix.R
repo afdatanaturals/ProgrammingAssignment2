@@ -1,16 +1,16 @@
 ##############################################
 ## Function: makeCacheMatrix
-## Create a special vector object, which is actualy a list containing a function to:
-## 1. Set the value of a vector
-## 2. Return the value of the vector
-## 3. Set the value of an inverted vector
-## 4. Return the value of the inverted vector
+## Create a special matrix object, which is actualy a list containing a function to:
+## 1. Set the value of a matrix
+## 2. Return the value of the matrix
+## 3. Set the value of an inverted matrix
+## 4. Return the value of the inverted matrix
 ##
 ## Author: Anthony Freeman
 ## 
-## Version	Date		Develeper	Description
+## Version	Date		Author	Description
 ## 0.0.1	21/10/2015	AF			Initial Version
-##
+## 0.0.2	21/10/2015	AF			Corrected some commenting errors
 ##
 #############################################
 
@@ -21,12 +21,12 @@ makeCacheMatrix <- function(x = matrix()) {
     x <<- y      # assign at environment level
     m <<- NULL   # assign at environment level
   }
-  #declare the function for the list, to be called against vector passed in
+  #declare the function get, returning matrix x
   get <- function() x
-  setinverse <- function(inv_vect) m <<- inv_vect  # assign the inverted vector to m
-  getinverse <- function() m    # return inverted vector
+  setinverse <- function(inv_vect) m <<- inv_vect  # assign the inverted matrix to m
+  getinverse <- function() m    # return inverted matrix
   
-  # create the list
+  # create and return the list of functions
   list(set = set, get = get,
        setinverse = setinverse,
        getinverse = getinverse)
@@ -35,11 +35,11 @@ makeCacheMatrix <- function(x = matrix()) {
 
 ##############################################
 ## Function: cacheSolve
-## Calculate the inverse of a vector. If already calculated return it. Otherwise calculate it, cache it and return it
-## Parameter: Invertible vector (square, non singular)
+## Calculate the inverse of a matrix. If already calculated return it. Otherwise calculate it, cache it and return it
+## Parameter: Invertible matrix (square, non singular)
 ## Author: Anthony Freeman
 ## 
-## Version	Date		Develeper	Description
+## Version	Date		Author		Description
 ## 0.0.1	21/10/2015	AF			Initial Version
 ##
 ##
@@ -49,7 +49,7 @@ cacheSolve <- function(x, ...) {
   ## Return a matrix that is the inverse of 'x'
   #call getinverse function from passed in list 
   m <- x$getinverse()
-  #if inverse of this vector object has already been calculated, return it
+  #if inverse of this matrix object has already been calculated, return it
   if(!is.null(m)) {
     message("getting cached inverse vector")
     return(m)
